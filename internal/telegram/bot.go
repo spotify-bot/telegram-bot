@@ -3,21 +3,17 @@ package telegram
 import (
 	"log"
 
-	"github.com/koskalak/mamal/internal/config"
-	"github.com/koskalak/mamal/internal/spotify"
 	tgbotapi "github.com/mohammadkarimi23/telegram-bot-api/v5"
 	"strconv"
 	"strings"
 )
 
 type TGBot struct {
-	bot     *tgbotapi.BotAPI
-	spotify *spotify.SpotifyProvider
+	bot *tgbotapi.BotAPI
 }
 
 type TGBotOptions struct {
-	Token           string
-	SpotifyProvider *spotify.SpotifyProvider
+	Token string
 }
 
 func New(opts TGBotOptions) *TGBot {
@@ -27,8 +23,7 @@ func New(opts TGBotOptions) *TGBot {
 	}
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 	telegramBot := TGBot{
-		bot:     bot,
-		spotify: opts.SpotifyProvider,
+		bot: bot,
 	}
 	return &telegramBot
 }
