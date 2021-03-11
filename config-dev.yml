@@ -1,9 +1,5 @@
 webserver:
-    address: 127.0.0.1:8585
+    address: http://mamad.se:8585
     mongoDSN: mongodb://localhost:27017/kirekhar
 telegramBot:
     apiToken: "1490590082:AAEFKyqD1l19Zzsowl6f9aEi26v6Ldtxsf4" 
-Spotify:
-    apiServerAddress: mamad.se:8585
-    clientID: "7ac9068705f04ff59649381a36601ff6"
-    clientSecret: "b9403485582c4419a340b693c6e546b7"

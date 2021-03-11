@@ -1,14 +1,14 @@
 package telegram
 
 import (
-	"github.com/spotify-bot/server/internal/config"
-	"github.com/spotify-bot/server/internal/spotify"
 	tgbotapi "github.com/mohammadkarimi23/telegram-bot-api/v5"
+	"github.com/spotify-bot/server/pkg/spotify"
+	"github.com/spotify-bot/telegram/internal/config"
 )
 
 func getAuthMessage(userID string) tgbotapi.InlineKeyboardMarkup {
 
-	link := "http://" + config.AppConfig.Spotify.ApiServerAddress + "/auth/telegram?user_id=" + userID //FIXME dev config
+	link := "http://" + config.AppConfig.Webserver.Address + "/auth/telegram?user_id=" + userID //FIXME dev config
 	return tgbotapi.NewInlineKeyboardMarkup(
 		tgbotapi.NewInlineKeyboardRow(
 			tgbotapi.NewInlineKeyboardButtonURL("Login to Spotify", link),

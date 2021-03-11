@@ -1,9 +1,11 @@
 package telegram
 
 import (
+	"github.com/spotify-bot/telegram/internal/config"
 	"log"
 
 	tgbotapi "github.com/mohammadkarimi23/telegram-bot-api/v5"
+	"github.com/spotify-bot/server/pkg/spotify"
 	"strconv"
 	"strings"
 )
@@ -76,7 +78,7 @@ func (tb *TGBot) processCommand(update *tgbotapi.Update) {
 func (tb *TGBot) processDirectMessage(update *tgbotapi.Update) {
 	log.Printf("Message from [%s]:  %s\n", update.Message.From.UserName, update.Message.Text)
 
-	txt := "Please use the following link for auth: \n" + config.AppConfig.Spotify.ApiServerAddress + "/auth/telegram?user_id=" + strconv.Itoa(update.Message.From.ID) //FIXME change to user_ID
+	txt := "Please use the following link for auth: \n" + config.AppConfig.Webserver.Address + "/auth/telegram?user_id=" + strconv.Itoa(update.Message.From.ID) //FIXME change to user_ID
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, txt)
 
 	if _, err := tb.bot.Send(msg); err != nil {
@@ -92,7 +94,7 @@ func (tb *TGBot) processInlineQuery(update *tgbotapi.Update) {
 		CacheTime:     0,
 	}
 
-	rp, err := tb.spotify.GetRecentlyPlayed(spotify.PlatformTelegram, strconv.Itoa(update.InlineQuery.From.ID))
+	rp, err := getRecentlyPlayed(strconv.Itoa(update.InlineQuery.From.ID))
 	if err != nil { //If not logged in, show the log in keyboard button
 		log.Println("Failed to get recently played song", err)
 		inlineConf.SwitchPMText = "Login to Spotify"
@@ -127,7 +129,7 @@ func (tb *TGBot) processCallbackQuery(update *tgbotapi.Update) {
 
 	switch queryType {
 	case 1:
-		err := tb.spotify.PlaySong(spotify.PlatformTelegram, strconv.Itoa(update.CallbackQuery.From.ID), trackURI)
+		err := playSong(strconv.Itoa(update.CallbackQuery.From.ID), trackURI)
 		if err != nil {
 			callbackMessage = "Failed to play song"
 			log.Println("Failed to play song: ", err)
@@ -135,7 +137,7 @@ func (tb *TGBot) processCallbackQuery(update *tgbotapi.Update) {
 			callbackMessage = "Enjoy!"
 		}
 	case 2:
-		err := tb.spotify.AddSongToQueue(spotify.PlatformTelegram, strconv.Itoa(update.CallbackQuery.From.ID), trackURI)
+		err := addSongToQueue(strconv.Itoa(update.CallbackQuery.From.ID), trackURI)
 		if err != nil {
 			callbackMessage = "Failed to add song to queue"
 			log.Println("Failed to add song to queue: ", err)
