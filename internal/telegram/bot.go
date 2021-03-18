@@ -82,7 +82,7 @@ func (tb *TGBot) processDirectMessage(update *tgbotapi.Update) {
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, txt)
 
 	if _, err := tb.bot.Send(msg); err != nil {
-		log.Fatal("Failed to send message ", err)
+		log.Fatal("Failed to send message [ ", txt, " ] ", err)
 	}
 }
 
