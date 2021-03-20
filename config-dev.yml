@@ -1,5 +1,0 @@
-webserver:
-    address: http://mamad.se:8585
-    mongoDSN: mongodb://localhost:27017/kirekhar
-telegramBot:
-    apiToken: "1490590082:AAEFKyqD1l19Zzsowl6f9aEi26v6Ldtxsf4" 
