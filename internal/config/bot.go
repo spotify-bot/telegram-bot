@@ -1,16 +1,8 @@
 package config
 
 type Config struct {
-	Webserver   Webserver   `mapstructure:"webserver"`
-	TelegramBot TelegramBot `mapstructure:"telegramBot"`
-}
-
-type Webserver struct {
-	Address string `mapstructure:"address"`
-}
-
-type TelegramBot struct {
-	APIToken string `mapstructure:"apiToken"`
+	APIServerAddress string `mapstructure:"API_SERVER_ADDRESS"`
+	TelegramAPIToken string `mapstructure:"TELEGRAM_API_TOKEN"`
 }
 
 var AppConfig Config
