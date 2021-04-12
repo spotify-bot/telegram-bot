@@ -99,7 +99,7 @@ func playSong(userID string, songURI string) error {
 func sendRequest(method string, path string, userID string, body io.Reader) (*http.Response, error) {
 
 	client := &http.Client{}
-	url := config.AppConfig.Webserver.Address + "/spotify/telegram/" + userID + path
+	url := config.AppConfig.APIServerAddress + "/spotify/telegram/" + userID + path
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err

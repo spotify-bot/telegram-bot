@@ -7,7 +7,7 @@ import (
 
 func main() {
 	tgbot := telegram.New(telegram.TGBotOptions{
-		Token: config.AppConfig.TelegramBot.APIToken,
+		Token: config.AppConfig.TelegramAPIToken,
 	})
 	tgbot.Start()
 }
