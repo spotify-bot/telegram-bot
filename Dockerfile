@@ -17,4 +17,4 @@ FROM alpine:3.12 as app
 
 WORKDIR /app
 COPY --from=builder /app/bot /app
-CMD ["/app/bot"]
+ENTRYPOINT ["/app/bot"]
