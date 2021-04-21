@@ -71,7 +71,7 @@ func (tb *TGBot) processCommand(update *tgbotapi.Update) {
 		msg.Text = "I don't know that command"
 	}
 	if _, err := tb.bot.Send(msg); err != nil {
-		log.Fatal("Failed to send message ", err)
+		log.Println("Failed to send message ", err)
 	}
 }
 
@@ -82,7 +82,7 @@ func (tb *TGBot) processDirectMessage(update *tgbotapi.Update) {
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, txt)
 
 	if _, err := tb.bot.Send(msg); err != nil {
-		log.Fatal("Failed to send message [ ", txt, " ] ", err)
+		log.Println("Failed to send message [ ", txt, " ] ", err)
 	}
 }
 
