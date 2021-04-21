@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+
+  database:
+    image: mongo
+    volumes:
+      - $PWD/data:/data/db
+
+  webserver:
+    build:
+      context: https://github.com/spotify-bot/server.git
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      ADDRESS: $ADDRESS
+      MONGO_DSN: $MONGO_DSN
+      API_SERVER_ADDRESS: $API_SERVER_ADDRESS
+      CALLBACK_ADDRESS: $CALLBACK_ADDRESS
+      CLIENT_ID: $CLIENT_ID
+      CLIENT_SECRET: $CLIENT_SECRET
+    depends_on:
+      - database
+    networks:
+      default:
+        aliases: 
+          - mamad.se
+
+  bot:
+    build:
+      context: .
+    environment:
+      API_SERVER_ADDRESS: $API_SERVER_ADDRESS
+      TELEGRAM_API_TOKEN: $TELEGRAM_API_TOKEN
+    depends_on:
+      - webserver
