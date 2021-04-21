@@ -9,7 +9,7 @@ services:
 
   webserver:
     build:
-      context: https://github.com/spotify-bot/server.git#deployment/envoy
+      context: https://github.com/spotify-bot/server.git
       dockerfile: Dockerfile
     ports:
       - "80:80"
