@@ -54,8 +54,8 @@ func getCurrentlyPlayingSong(userID string) (*spotify.Track, error) {
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return nil, spotify.CallbackError{
-			spotify.CurrentlyPlayingEndpoint,
-			resp.StatusCode,
+			Endpoint: spotify.CurrentlyPlayingEndpoint,
+			Code:     resp.StatusCode,
 		}
 	}
 	body, err := ioutil.ReadAll(resp.Body)
